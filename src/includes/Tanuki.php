@@ -13,9 +13,17 @@ class Tanuki {
     $this->normalizerRegistry = $config["normalizerRegistry"] ?? new NormalizerRegistry();
   }
 
-  public function createForm(string $name, array $schema): Form {
-    $formSchema = FormSchema::fromArray($schema, $this->fieldFactory);
+  public function createForm(string $name, array $options = []): Form {
+    $formSchema = FormSchema::fromArray($options["schema"], $this->fieldFactory);
     $form = new Form($name, $formSchema, $this->validator, $this->normalizerRegistry);
+
+    foreach($options["preHandlers"] ?? [] as $o){
+      $form->addPreHandler(new $o["handler"]($o["config"]));
+    }
+
+    foreach($options["postHandlers"] ?? [] as $o){
+      $form->addPostHandler(new $o["handler"]($o["config"]));
+    }
 
     return $form;
   }

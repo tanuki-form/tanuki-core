@@ -22,6 +22,10 @@ class Form {
     $this->postHandlers = new HandlerPipeline("post");
   }
 
+  public function addPreHandler(HandlerInterface $preHandler){
+    $this->preHandlers->addHandler($preHandler);
+  }
+
   public function addPostHandler(HandlerInterface $postHandler){
     $this->postHandlers->addHandler($postHandler);
   }
@@ -40,12 +44,15 @@ class Form {
 
   public function getNormalizedData(): array {
     $postData = $this->postData;
+    $data = [];
 
-    return array_map(function($field) use($postData) {
+    foreach($this->schema->fields as $field){
       $fieldName = $field->name;
       $fieldValue = $postData[$fieldName] ?? null;
-      return $field->normalize($fieldValue, $this->normalizerRegistry);
-    }, $this->schema->fields);
+      $data[$fieldName] = $field->normalize($fieldValue, $this->normalizerRegistry);
+    }
+
+    return $data;
   }
   public function hasValidationErrors(): bool {
     return !empty($this->validationErrors);
