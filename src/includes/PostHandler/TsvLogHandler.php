@@ -17,12 +17,14 @@ class TsvLogHandler extends AbstractHandler {
   public function handle(Form $form, HandlerPipelineContext $context): HandlerResult {
     $path = $this->config['path'] ?? (rtrim(dirname($_SERVER['SCRIPT_FILENAME']), '/') . '/log.tsv');
 
-    if(file_exists($path) && is_dir($path)){
-      return $this->failure("Log file is not writable: " . $path);
-    }
-
-    if(!file_exists($path) && !is_writable($path)) {
-      return $this->failure("Log file could not be created: " . $path);
+    if(file_exists($path)){
+      if(is_dir($path) || !is_writable($path)){
+        return $this->failure("Log file is not writable: " . $path);
+      }
+    }else{
+      if(!touch($path)){
+        return $this->failure("Log file could not be created: " . $path);
+      }
     }
 
     $output = fopen($path, 'a');
