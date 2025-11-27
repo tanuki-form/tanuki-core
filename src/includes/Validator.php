@@ -10,7 +10,7 @@ class Validator {
       if (is_array($value)) {
         return !empty($value);
       }
-      return trim($value) !== '';
+      return !is_null($value) && trim($value) !== '';
     });
 
     $this->addValidator('email', function(string|array $value, array $postData, mixed $arg = true): bool {

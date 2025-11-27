@@ -6,6 +6,7 @@ use Tanuki\Field\FieldInterface;
 use Tanuki\Field\ValueField;
 use Tanuki\Field\ArrayField;
 use Tanuki\Field\FileField;
+use Tanuki\Field\StructField;
 
 class FieldFactory
 {
@@ -16,12 +17,9 @@ class FieldFactory
     $this->registerField('value', ValueField::class);
     $this->registerField('array', ArrayField::class);
     $this->registerField('file', FileField::class);
+    $this->registerField('struct', StructField::class);
   }
 
-  /**
-   * * @param string $type フィールドタイプ識別子 (例: 'value')
-   * @param string $className FieldInterfaceを実装したクラス名
-   */
   public function registerField(string $type, string $className): void{
     if (!is_a($className, FieldInterface::class, true)) {
       throw new \InvalidArgumentException("Class {$className} must implement FieldInterface.");

@@ -9,6 +9,7 @@ abstract class AbstractField implements FieldInterface {
   public string $name;
   public string $label;
   public array $validators = [];
+  protected string $normalizerKey = 'strval';
 
   public function __construct(string $name, string $label) {
     $this->name = $name;
