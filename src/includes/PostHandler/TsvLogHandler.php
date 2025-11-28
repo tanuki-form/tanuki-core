@@ -15,7 +15,7 @@ class TsvLogHandler extends AbstractHandler {
   }
 
   public function handle(Form $form, HandlerPipelineContext $context): HandlerResult {
-    $path = $this->config['path'] ?? (rtrim(dirname($_SERVER['SCRIPT_FILENAME']), '/') . '/log.tsv');
+    $path = $this->config["path"] ?? (rtrim(dirname($_SERVER["SCRIPT_FILENAME"]), "/") . "/log.tsv");
 
     if(file_exists($path)){
       if(is_dir($path) || !is_writable($path)){
@@ -27,7 +27,7 @@ class TsvLogHandler extends AbstractHandler {
       }
     }
 
-    $output = fopen($path, 'a');
+    $output = fopen($path, "a");
     $data = $form->getNormalizedData();
     $data = array_map(function($e){return is_array($e) ? implode(",", $e) : $e;}, $data);
     fputcsv($output, $data, "\t");

@@ -6,35 +6,35 @@ class Validator {
   public array $validators = [];
 
   public function __construct() {
-    $this->addValidator('required', function(string|array $value, array $postData, mixed $arg = true): bool {
+    $this->addValidator("required", function(string|array $value, array $postData, mixed $arg = true): bool {
       if (is_array($value)) {
         return !empty($value);
       }
-      return !is_null($value) && trim($value) !== '';
+      return !is_null($value) && trim($value) !== "";
     });
 
-    $this->addValidator('email', function(string|array $value, array $postData, mixed $arg = true): bool {
+    $this->addValidator("email", function(string|array $value, array $postData, mixed $arg = true): bool {
       if (is_array($value)) {
         return false;
       }
       return filter_var($value, FILTER_VALIDATE_EMAIL) !== false;
     });
 
-    $this->addValidator('minLength', function(string|array $value, array $postData, mixed $arg = true): bool {
+    $this->addValidator("minLength", function(string|array $value, array $postData, mixed $arg = true): bool {
       if (is_array($value) || !is_numeric($arg)) {
         return false;
       }
       return strlen($value) >= $arg;
     });
 
-    $this->addValidator('maxLength', function(string|array $value, array $postData, mixed $arg = true): bool {
+    $this->addValidator("maxLength", function(string|array $value, array $postData, mixed $arg = true): bool {
       if (is_array($value) || !is_numeric($arg)) {
         return false;
       }
       return strlen($value) <= $arg;
     });
 
-    $this->addValidator('matchField', function(string|array $value, array $postData, mixed $arg = true): bool {
+    $this->addValidator("matchField", function(string|array $value, array $postData, mixed $arg = true): bool {
       if (is_array($value) || !isset($postData[$arg])) {
         return false;
       }
@@ -42,14 +42,14 @@ class Validator {
       return $value === $otherValue;
     });
 
-    $this->addValidator('numeric', function(string|array $value, array $postData, mixed $arg = true): bool {
+    $this->addValidator("numeric", function(string|array $value, array $postData, mixed $arg = true): bool {
       if (is_array($value)) {
         return false;
       }
       return is_numeric($value);
     });
 
-    $this->addValidator('inArray', function(string|array $value, array $postData, mixed $arg = true): bool {
+    $this->addValidator("inArray", function(string|array $value, array $postData, mixed $arg = true): bool {
       if ($arg[0] === true) {
         return false;
       }
@@ -66,7 +66,7 @@ class Validator {
       }
     });
 
-    $this->addValidator('pattern', function(string|array $value, array $postData, mixed $arg = true): bool {
+    $this->addValidator("pattern", function(string|array $value, array $postData, mixed $arg = true): bool {
       if (is_array($value) || !is_string($arg)) {
         return false;
       }

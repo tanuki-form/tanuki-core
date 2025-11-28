@@ -15,7 +15,7 @@ class JsonLogHandler extends AbstractHandler {
   }
 
   public function handle(Form $form, HandlerPipelineContext $context): HandlerResult {
-    $dir = $this->config['directory'] ?? (rtrim(dirname($_SERVER['SCRIPT_FILENAME']), '/') . '/logs');
+    $dir = $this->config["directory"] ?? (rtrim(dirname($_SERVER["SCRIPT_FILENAME"]), "/") . "/logs");
 
     if(!file_exists($dir)){
       mkdir($dir, 0755);

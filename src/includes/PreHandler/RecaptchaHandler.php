@@ -18,30 +18,30 @@ class RecaptchaHandler extends AbstractHandler {
     if($context->hasError()) return $this->skipped();
 
     $formData = $form->getRawData();
-    $token = $formData['recaptchaToken'] ?? '';
+    $token = $formData["recaptchaToken"] ?? "";
 
     if(empty($token)){
-      $this->failure('token-missing');
+      $this->failure("token-missing");
     }
 
-    $projectId = $this->config['projectId'] ?? '';
-    $apiKey = $this->config['apiKey'] ?? '';
-    $siteKey = $this->config['siteKey'] ?? '';
-    $action = $this->config['action'] ?? '';
+    $projectId = $this->config["projectId"] ?? "";
+    $apiKey = $this->config["apiKey"] ?? "";
+    $siteKey = $this->config["siteKey"] ?? "";
+    $action = $this->config["action"] ?? "";
 
     $url = "https://recaptchaenterprise.googleapis.com/v1/projects/{$projectId}/assessments?key={$apiKey}";
 
     $payload = [
-      'event' => [
-        'token'          => $token,
-        'siteKey'        => $siteKey,
-        'expectedAction' => $action
+      "event" => [
+        "token" => $token,
+        "siteKey" => $siteKey,
+        "expectedAction" => $action
       ]
     ];
 
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ["Content-Type: application/json"]);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
@@ -49,19 +49,19 @@ class RecaptchaHandler extends AbstractHandler {
     $error = curl_error($ch);
 
     if($error){
-      return $this->failure('curl-error', ['error' => $error]);
+      return $this->failure("curl-error", ["error" => $error]);
     }
 
     $result = json_decode($response, true);
-    $score   = $result['riskAnalysis']['score'] ?? null;
-    $reasons = $result['riskAnalysis']['reasons'] ?? [];
+    $score   = $result["riskAnalysis"]["score"] ?? null;
+    $reasons = $result["riskAnalysis"]["reasons"] ?? [];
 
     if ($score === null) {
-      return $this->failure('invalid-assessment');
+      return $this->failure("invalid-assessment");
     }
 
     if($score < 0.5){
-      return $this->failure('rejected');
+      return $this->failure("rejected");
     }
 
     return $this->success();

@@ -18,19 +18,19 @@ class TurnstileHandler extends AbstractHandler {
     if($context->hasError()) return $this->skipped();
 
     $formData = $form->getRawData();
-    $token = $formData['cf-turnstile-response'] ?? '';
+    $token = $formData["cf-turnstile-response"] ?? "";
 
     if(!$token){
-      return $this->failure('token-missing');
+      return $this->failure("token-missing");
     }
 
     $payload = [
-      'response' => $token,
-      'secret'   => $this->config['secretKey'] ?? '',
-      'remoteip' => $_SERVER['REMOTE_ADDR'] ?? null,
+      "response" => $token,
+      "secret" => $this->config["secretKey"] ?? "",
+      "remoteip" => $_SERVER["REMOTE_ADDR"] ?? null,
     ];
 
-    $ch = curl_init('https://challenges.cloudflare.com/turnstile/v0/siteverify');
+    $ch = curl_init("https://challenges.cloudflare.com/turnstile/v0/siteverify");
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
@@ -38,8 +38,8 @@ class TurnstileHandler extends AbstractHandler {
 
     $result = json_decode($response, true);
 
-    if(!($result['success'] ?? false)){
-      return $this->failure('verification-failed');
+    if(!($result["success"] ?? false)){
+      return $this->failure("verification-failed");
     }
 
     return $this->success();

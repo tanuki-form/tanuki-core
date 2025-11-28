@@ -5,7 +5,7 @@ namespace Tanuki\Field;
 use Tanuki\NormalizerRegistry;
 
 class ValueField extends AbstractField {
-  protected string $type = 'value';
+  protected string $type = "value";
 
   public function normalize(mixed $value, NormalizerRegistry $registry): mixed {
     $callable = $registry->resolve($this->normalizerKey);

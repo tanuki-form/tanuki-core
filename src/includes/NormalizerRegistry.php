@@ -19,7 +19,7 @@ class NormalizerRegistry {
     }
 
     throw new \InvalidArgumentException(
-      sprintf('Normalizer "%s" not found in registry or as a callable function.', $key)
+      sprintf("Normalizer \"%s\" not found in registry or as a callable function.", $key)
     );
   }
 }

@@ -6,7 +6,7 @@ use Tanuki\NormalizerRegistry;
 use stdClass;
 
 class StructField extends AbstractField {
-  protected string $type = 'struct';
+  protected string $type = "struct";
   public array $fields = [];
 
   public function normalize(mixed $value, NormalizerRegistry $registry): mixed {

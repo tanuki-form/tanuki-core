@@ -14,10 +14,10 @@ class FieldFactory
   private array $typeMap = [];
 
   public function __construct() {
-    $this->registerField('value', ValueField::class);
-    $this->registerField('array', ArrayField::class);
-    $this->registerField('file', FileField::class);
-    $this->registerField('struct', StructField::class);
+    $this->registerField("value", ValueField::class);
+    $this->registerField("array", ArrayField::class);
+    $this->registerField("file", FileField::class);
+    $this->registerField("struct", StructField::class);
   }
 
   public function registerField(string $type, string $className): void{
@@ -28,16 +28,16 @@ class FieldFactory
   }
 
   public function create(array $fieldData): FieldInterface {
-    $type = $fieldData['type'] ?? 'value';
+    $type = $fieldData["type"] ?? "value";
 
     if (!isset($this->typeMap[$type])) {
       throw new \InvalidArgumentException("Unsupported field type: {$type}. Is the field registered?");
     }
 
     $className = $this->typeMap[$type];
-    $field = new $className($fieldData['name'], $fieldData['label'] ?? '');
+    $field = new $className($fieldData["name"], $fieldData["label"] ?? "");
 
-    foreach($fieldData['validation'] ?? '' as $name => $args){
+    foreach($fieldData["validation"] ?? [] as $name => $args){
       $field->addValidation($name, $args);
     }
 

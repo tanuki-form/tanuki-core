@@ -64,7 +64,7 @@ class Form {
     $success = true;
 
     foreach($this->schema->fields as $field){
-      $value = $this->postData[$field->name] ?? '';
+      $value = $this->postData[$field->name] ?? "";
 
       foreach($field->validators as $validatorName => $args){
         $isValid = $this->validator->validate($validatorName, $value, $this->postData, $args);
