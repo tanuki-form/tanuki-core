@@ -3,7 +3,6 @@
 namespace Tanuki;
 
 class Form {
-  public string $name;
   private FormSchema $schema;
   private Validator $validator;
   private HandlerPipeline $preHandlers;
@@ -13,8 +12,7 @@ class Form {
   private array $postData;
   private array $validationErrors = [];
 
-  public function __construct(string $name, FormSchema $schema, Validator $validator, NormalizerRegistry $normalizerRegistry) {
-    $this->name = $name;
+  public function __construct(FormSchema $schema, Validator $validator, NormalizerRegistry $normalizerRegistry) {
     $this->schema = $schema;
     $this->validator = $validator;
     $this->normalizerRegistry = $normalizerRegistry;
