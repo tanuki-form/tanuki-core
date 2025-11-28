@@ -1,6 +1,6 @@
 <?php
 
-namespace Tanuki\PostHandler;
+namespace Tanuki\PreHandler;
 
 use Tanuki\AbstractHandler;
 use Tanuki\Form;
