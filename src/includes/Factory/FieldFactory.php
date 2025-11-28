@@ -35,9 +35,9 @@ class FieldFactory
     }
 
     $className = $this->typeMap[$type];
-    $field = new $className($fieldData['name'], $fieldData['label']);
+    $field = new $className($fieldData['name'], $fieldData['label'] ?? '');
 
-    foreach($fieldData['validation'] as $name => $args){
+    foreach($fieldData['validation'] ?? '' as $name => $args){
       $field->addValidation($name, $args);
     }
 

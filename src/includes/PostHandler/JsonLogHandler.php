@@ -30,7 +30,11 @@ class JsonLogHandler extends AbstractHandler {
     }
 
     $path = "{$dir}/" . date("YmdHis") . "_" . bin2hex(random_bytes(4)) . ".json";
-    $data = $form->getNormalizedData();
+    $data = [...$form->getNormalizedData()];
+    foreach($this->config["ignoreFields"] as $name){
+      unset($data[$name]);
+    }
+
     file_put_contents($path, json_encode($data));
 
     return $this->success();
