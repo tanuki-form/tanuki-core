@@ -2,7 +2,7 @@
 
 namespace Tanuki;
 
-class HandlerResult {
+class HandlerResult implements \JsonSerializable {
   private function __construct(
     private string  $identifier,
     private bool $isSuccessful,
@@ -27,4 +27,14 @@ class HandlerResult {
   public function isSuccessful(): bool { return $this->isSuccessful; }
   public function wasSkipped(): bool { return $this->wasSkipped; }
   public function isFailure(): bool { return !$this->isSuccessful; }
+
+  public function jsonSerialize(): mixed  {
+    return [
+      "identifier" => $this->identifier,
+      "isSuccessful" => $this->isSuccessful,
+      "wasSkipped" => $this->wasSkipped,
+      "errorMessage" => $this->errorMessage,
+      "data" => $this->data
+    ];
+  }
 }
