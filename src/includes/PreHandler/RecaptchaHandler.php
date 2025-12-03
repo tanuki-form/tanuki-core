@@ -18,7 +18,7 @@ class RecaptchaHandler extends AbstractHandler {
     if($context->hasError()) return $this->skipped();
 
     $formData = $form->getRawData();
-    $token = $formData["recaptchaToken"] ?? "";
+    $token = $formData["recaptcha-token"] ?? "";
 
     if(empty($token)){
       $this->failure("token-missing");
