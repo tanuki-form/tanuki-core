@@ -7,21 +7,21 @@ class Tanuki {
   public Validator $validator;
   public NormalizerRegistry $normalizerRegistry;
 
-  public function __construct(array $config=[]) {
-    $this->fieldFactory = $config["fieldFactory"] ?? new Factory\FieldFactory();
-    $this->validator = $config["validator"] ?? new Validator();
-    $this->normalizerRegistry = $config["normalizerRegistry"] ?? new NormalizerRegistry();
+  public function __construct(array $options=[]) {
+    $this->fieldFactory = $options["fieldFactory"] ?? new Factory\FieldFactory();
+    $this->validator = $options["validator"] ?? new Validator();
+    $this->normalizerRegistry = $options["normalizerRegistry"] ?? new NormalizerRegistry();
   }
 
-  public function createForm(array $options = []): Form {
-    $formSchema = FormSchema::fromArray($options["schema"], $this->fieldFactory);
+  public function createForm(array $config=[]): Form {
+    $formSchema = FormSchema::fromArray($config["schema"], $this->fieldFactory);
     $form = new Form($formSchema, $this->validator, $this->normalizerRegistry);
 
-    foreach($options["preHandlers"] ?? [] as $o){
+    foreach($config["preHandlers"] ?? [] as $o){
       $form->addPreHandler(new $o["handler"]($o["config"]));
     }
 
-    foreach($options["postHandlers"] ?? [] as $o){
+    foreach($config["postHandlers"] ?? [] as $o){
       $form->addPostHandler(new $o["handler"]($o["config"]));
     }
 
