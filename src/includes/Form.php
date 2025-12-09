@@ -8,6 +8,7 @@ class Form {
   private HandlerPipeline $preHandlers;
   private HandlerPipeline $postHandlers;
   private NormalizerRegistry $normalizerRegistry;
+  public Helper $helper;
 
   private array $postData;
   private array $validationErrors = [];
@@ -18,14 +19,17 @@ class Form {
     $this->normalizerRegistry = $normalizerRegistry;
     $this->preHandlers = new HandlerPipeline("pre");
     $this->postHandlers = new HandlerPipeline("post");
+    $this->helper = new Helper();
   }
 
   public function addPreHandler(HandlerInterface $preHandler){
     $this->preHandlers->addHandler($preHandler);
+    $preHandler->registerHelper($this->helper);
   }
 
   public function addPostHandler(HandlerInterface $postHandler){
     $this->postHandlers->addHandler($postHandler);
+    $postHandler->registerHelper($this->helper);
   }
 
   public function bind(array $data){

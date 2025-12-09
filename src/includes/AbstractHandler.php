@@ -18,4 +18,6 @@ class AbstractHandler implements HandlerInterface {
   public function handle(Form $form, HandlerPipelineContext $context): HandlerResult {
     return $this->success();
   }
+
+  public function registerHelper(Helper $helper): void {}
 }
