@@ -6,6 +6,7 @@ use Tanuki\AbstractHandler;
 use Tanuki\Form;
 use Tanuki\HandlerPipelineContext;
 use Tanuki\HandlerResult;
+use Tanuki\Helper;
 
 class RecaptchaHandler extends AbstractHandler {
   public array $config = [];
@@ -68,9 +69,7 @@ class RecaptchaHandler extends AbstractHandler {
   }
 
   public function registerHelper(Helper $helper): void {
-    $handler = $this;
-
-    $helper->register("getRecaptchaSiteKey", function()use($handler) {
+    $helper->register("getRecaptchaSiteKey", function(): string {
       return $this->config["siteKey"];
     });
   }

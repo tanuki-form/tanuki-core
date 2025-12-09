@@ -34,18 +34,16 @@ class CsrfGuardHandler extends AbstractHandler {
   }
 
   public function registerHelper(Helper $helper): void {
-    $handler = $this;
-
-    $helper->register("getCsrfToken", function()use($handler) {
+    $helper->register("getCsrfToken", function() {
       if(session_status() === PHP_SESSION_NONE) session_start();
 
-      $key = $handler->config["token-session-key"] ?? "csrf-token";
+      $key = $this->config["token-session-key"] ?? "csrf-token";
 
-      if(empty($_SESSION["csrf-token"])){
-        $_SESSION["csrf-token"] = bin2hex(random_bytes(32));
+      if(empty($_SESSION[$key])){
+        $_SESSION[$key] = bin2hex(random_bytes(32));
       }
 
-      return $_SESSION["csrf-token"];
+      return $_SESSION[$key];
     });
   }
 }

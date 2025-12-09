@@ -47,9 +47,7 @@ class TurnstileHandler extends AbstractHandler {
   }
 
   public function registerHelper(Helper $helper): void {
-    $handler = $this;
-
-    $helper->register("getTurnstileSiteKey", function()use($handler) {
+    $helper->register("getTurnstileSiteKey", function(): string {
       return $this->config["siteKey"];
     });
   }
