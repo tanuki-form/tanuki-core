@@ -6,6 +6,7 @@ use Tanuki\AbstractHandler;
 use Tanuki\Form;
 use Tanuki\HandlerPipelineContext;
 use Tanuki\HandlerResult;
+use Tanuki\Helper;
 
 class TurnstileHandler extends AbstractHandler {
   public array $config = [];
@@ -43,5 +44,13 @@ class TurnstileHandler extends AbstractHandler {
     }
 
     return $this->success();
+  }
+
+  public function registerHelper(Helper $helper): void {
+    $handler = $this;
+
+    $helper->register("getTurnstileSiteKey", function()use($handler) {
+      return $this->config["siteKey"];
+    });
   }
 }
