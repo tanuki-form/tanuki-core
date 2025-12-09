@@ -28,7 +28,11 @@ class TsvLogHandler extends AbstractHandler {
     }
 
     $output = fopen($path, "a");
-    $data = $form->getNormalizedData();
+    $data = [...$form->getNormalizedData()];
+    foreach($this->config["ignoreFields"] ?? [] as $name){
+      unset($data[$name]);
+    }
+
     $data = array_map(function($e){return is_array($e) ? implode(",", $e) : $e;}, $data);
     fputcsv($output, $data, "\t");
     fclose($output);

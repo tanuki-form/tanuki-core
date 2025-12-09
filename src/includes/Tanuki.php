@@ -25,6 +25,14 @@ class Tanuki {
       $form->addPostHandler(new $o["handler"]($o["config"]));
     }
 
+    foreach($config["helpers"] ?? [] as $helperMethod){
+      /**
+       * @var HelperMethodInterface $helperMethod
+       */
+      $helperMethod = new $helperMethod;
+      $helperMethod->registerFor($form->helper);
+    }
+
     return $form;
   }
 }

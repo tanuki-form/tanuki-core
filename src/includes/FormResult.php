@@ -31,12 +31,21 @@ class FormResult {
   public function hasValidationErrors(): bool {
     return count($this->validationErrors) > 0;
   }
+
   public function getValidationErrors(): array {
     return $this->validationErrors;
   }
+
+  /**
+   * @return HandlerResult[]
+   */
   public function getPreHandlerResults(): array {
     return $this->preHandlerResults;
   }
+
+  /**
+   * @return HandlerResult[]
+   */
   public function getPostHandlerResults(): array {
     return $this->postHandlerResults;
   }

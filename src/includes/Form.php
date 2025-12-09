@@ -32,6 +32,10 @@ class Form {
     $postHandler->registerHelper($this->helper);
   }
 
+  public function addHelper($name, $helper){
+    $this->helper->register($name, $helper);
+  }
+
   public function bind(array $data){
     $this->postData = [];
 
