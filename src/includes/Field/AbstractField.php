@@ -7,13 +7,11 @@ use Tanuki\NormalizerRegistry;
 abstract class AbstractField implements FieldInterface {
   protected string $type;
   public string $name;
-  public string $label;
   public array $validators = [];
   protected string $normalizerKey = "strval";
 
-  public function __construct(string $name, string $label) {
+  public function __construct(string $name) {
     $this->name = $name;
-    $this->label = $label;
   }
 
   public function getType(): string {
