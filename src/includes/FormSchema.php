@@ -19,7 +19,8 @@ class FormSchema {
   public static function fromArray(array $schema, FieldFactory $fieldFactory): self {
     $formSchema = new self;
 
-    foreach($schema as $_field){
+    foreach($schema as $key => $_field){
+      $_field["name"] ??= $key;
       $formSchema->addField($fieldFactory->create($_field));
     }
 
