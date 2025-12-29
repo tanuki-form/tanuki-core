@@ -9,12 +9,6 @@ use Tanuki\HandlerResult;
 use Tanuki\Helper;
 
 class CsrfGuardHandler extends AbstractHandler {
-  public array $config = [];
-
-  public function __construct(array $config = []) {
-    $this->config = $config;
-  }
-
   public function handle(Form $form, HandlerPipelineContext $context): HandlerResult {
     if($context->hasError()) return $this->skipped();
     if(session_status() === PHP_SESSION_NONE) session_start();

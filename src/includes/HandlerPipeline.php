@@ -16,7 +16,7 @@ class HandlerPipeline {
 
   public function execute(Form $form, HandlerPipelineContext $context): void {
     foreach($this->handlers as $handler) {
-      $context->addResult($handler->handle($form, $context));
+      $context->addResult($handler->__handle($form, $context));
     }
   }
 }

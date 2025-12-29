@@ -18,11 +18,11 @@ class Tanuki {
     $form = new Form($formSchema, $this->validator, $this->normalizerRegistry);
 
     foreach($config["preHandlers"] ?? [] as $o){
-      $form->addPreHandler(new $o["handler"]($o["config"]));
+      $form->addPreHandler(new $o["handler"]($o["config"], $o["action"] ?? "handle"));
     }
 
     foreach($config["postHandlers"] ?? [] as $o){
-      $form->addPostHandler(new $o["handler"]($o["config"]));
+      $form->addPostHandler(new $o["handler"]($o["config"], $o["action"] ?? "handle"));
     }
 
     foreach($config["helpers"] ?? [] as $helperMethod){

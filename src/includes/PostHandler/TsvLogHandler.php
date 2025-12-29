@@ -8,12 +8,6 @@ use Tanuki\HandlerPipelineContext;
 use Tanuki\HandlerResult;
 
 class TsvLogHandler extends AbstractHandler {
-  public array $config = [];
-
-  public function __construct(array $config = []) {
-    $this->config = $config;
-  }
-
   public function handle(Form $form, HandlerPipelineContext $context): HandlerResult {
     $path = $this->config["path"] ?? (rtrim(dirname($_SERVER["SCRIPT_FILENAME"]), "/") . "/log.tsv");
 

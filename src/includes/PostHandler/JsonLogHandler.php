@@ -8,12 +8,6 @@ use Tanuki\HandlerPipelineContext;
 use Tanuki\HandlerResult;
 
 class JsonLogHandler extends AbstractHandler {
-  public array $config = [];
-
-  public function __construct(array $config = []) {
-    $this->config = $config;
-  }
-
   public function handle(Form $form, HandlerPipelineContext $context): HandlerResult {
     $dir = $this->config["directory"] ?? (rtrim(dirname($_SERVER["SCRIPT_FILENAME"]), "/") . "/logs");
 
