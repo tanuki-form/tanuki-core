@@ -24,12 +24,11 @@ class AbstractHandler implements HandlerInterface {
     return $this->success();
   }
 
-  final public function __handle(Form $form, HandlerPipelineContext $ctx): void {
+  final public function __handle(Form $form, HandlerPipelineContext $ctx): HandlerResult {
     $method = $this->action;
 
     if (method_exists($this, $method)) {
-      $this->$method($form, $ctx);
-      return;
+      return $this->$method($form, $ctx);
     }
 
     throw new \RuntimeException(sprintf(
