@@ -12,5 +12,5 @@ $ composer create-project tanuki-form/single-form-skeleton .
 ## Headless mail form
 
 ```
-$ composer create-project tanuki-form/headless-form-skeleton .
+$ composer create-project tanuki-form/headless-single-form-skeleton .
 ```
