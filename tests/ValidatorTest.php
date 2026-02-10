@@ -177,6 +177,20 @@ class ValidatorTest extends TestCase
         $this->assertFalse($this->validator->validate('pattern', ['123'], [], '^\d+$'));
     }
 
+    // --- pattern edge cases ---
+
+    public function testPatternWithForwardSlash(): void
+    {
+        $this->assertTrue($this->validator->validate('pattern', '2025/01/01', [], '^\d{4}/\d{2}/\d{2}$'));
+    }
+
+    // --- required edge cases ---
+
+    public function testRequiredPassesWithZeroString(): void
+    {
+        $this->assertTrue($this->validator->validate('required', '0', []));
+    }
+
     // --- custom validator ---
 
     public function testAddCustomValidator(): void

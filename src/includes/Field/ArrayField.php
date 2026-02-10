@@ -8,6 +8,9 @@ class ArrayField extends AbstractField {
   protected string $type = "array";
 
   public function normalize(mixed $value, NormalizerRegistry $registry): mixed {
+    if (!is_array($value)) {
+      return [];
+    }
     $callable = $registry->resolve($this->normalizerKey);
     return array_map($callable, $value);
   }

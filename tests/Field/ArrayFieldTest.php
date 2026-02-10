@@ -35,4 +35,23 @@ class ArrayFieldTest extends TestCase
 
         $this->assertSame(['a', 'b'], $result);
     }
+
+    public function testNormalizeReturnsEmptyArrayForNonArray(): void
+    {
+        $registry = new NormalizerRegistry();
+
+        $field = new ArrayField('tags');
+        $this->assertSame([], $field->normalize('not-an-array', $registry));
+        $this->assertSame([], $field->normalize(null, $registry));
+        $this->assertSame([], $field->normalize(123, $registry));
+    }
+
+    public function testNormalizeEmptyArray(): void
+    {
+        $registry = new NormalizerRegistry();
+        $registry->register('strval', 'strval');
+
+        $field = new ArrayField('tags');
+        $this->assertSame([], $field->normalize([], $registry));
+    }
 }

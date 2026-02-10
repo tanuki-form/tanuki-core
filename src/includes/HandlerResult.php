@@ -28,7 +28,7 @@ class HandlerResult implements \JsonSerializable {
   public function wasSkipped(): bool { return $this->wasSkipped; }
   public function isFailure(): bool { return !$this->isSuccessful; }
   public function getIdentifier(): string { return $this->identifier; }
-  public function getErrorMessage(): string { return $this->errorMessage; }
+  public function getErrorMessage(): ?string { return $this->errorMessage; }
   public function getData(): array { return $this->data; }
 
   public function jsonSerialize(): mixed  {

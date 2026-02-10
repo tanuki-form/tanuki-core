@@ -57,4 +57,29 @@ class TanukiTest extends TestCase
 
         $this->assertInstanceOf(Form::class, $form);
     }
+
+    public function testCreateFormWithHandlers(): void
+    {
+        $tanuki = new Tanuki();
+        $form = $tanuki->createForm([
+            'schema' => [
+                'name' => ['type' => 'value'],
+            ],
+            'preHandlers' => [
+                ['handler' => \Tanuki\AbstractHandler::class, 'config' => []],
+            ],
+            'postHandlers' => [
+                ['handler' => \Tanuki\AbstractHandler::class, 'config' => [], 'action' => 'handle'],
+            ],
+        ]);
+
+        $this->assertInstanceOf(Form::class, $form);
+
+        $form->bind(['name' => 'test']);
+        $result = $form->send();
+
+        $this->assertTrue($result->isSuccessful());
+        $this->assertCount(1, $result->getPreHandlerResults());
+        $this->assertCount(1, $result->getPostHandlerResults());
+    }
 }

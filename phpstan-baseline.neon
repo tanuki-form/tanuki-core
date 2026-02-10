@@ -1,0 +1,7 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Property Tanuki\\HandlerPipeline\:\:\$type is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: src/includes/HandlerPipeline.php

@@ -38,6 +38,12 @@ class HandlerResultTest extends TestCase
         $this->assertTrue($result->wasSkipped());
     }
 
+    public function testSuccessHasNullErrorMessage(): void
+    {
+        $result = HandlerResult::success('TestHandler');
+        $this->assertNull($result->getErrorMessage());
+    }
+
     public function testJsonSerialize(): void
     {
         $result = HandlerResult::success('TestHandler');
@@ -46,5 +52,6 @@ class HandlerResultTest extends TestCase
         $this->assertSame('TestHandler', $json['identifier']);
         $this->assertTrue($json['isSuccessful']);
         $this->assertFalse($json['wasSkipped']);
+        $this->assertNull($json['errorMessage']);
     }
 }

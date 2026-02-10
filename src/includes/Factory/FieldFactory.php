@@ -2,6 +2,7 @@
 
 namespace Tanuki\Factory;
 
+use Tanuki\Field\AbstractField;
 use Tanuki\Field\FieldInterface;
 use Tanuki\Field\ValueField;
 use Tanuki\Field\ArrayField;
@@ -27,7 +28,7 @@ class FieldFactory
     $this->typeMap[$type] = $className;
   }
 
-  public function create(array $fieldData): FieldInterface {
+  public function create(array $fieldData): AbstractField {
     $type = $fieldData["type"] ?? "value";
 
     if (!isset($this->typeMap[$type])) {
