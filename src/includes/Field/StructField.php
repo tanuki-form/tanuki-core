@@ -19,7 +19,7 @@ class StructField extends AbstractField {
     foreach ($this->fields as $field) {
       $fieldName = $field->name;
       $fieldValue = $value[$field->name] ?? null;
-      $o->$fieldName = $field->normalize($fieldValue);
+      $o->$fieldName = $field->normalize($fieldValue, $registry);
     }
 
     return $o;

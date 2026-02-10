@@ -7,7 +7,7 @@ use Tanuki\Field\AbstractField;
 
 class FormSchema {
   /** @var AbstractField[] */
-  public array $fields;
+  public array $fields = [];
 
   public function __construct() {
   }
