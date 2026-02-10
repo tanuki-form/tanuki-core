@@ -11,7 +11,7 @@ class StructField extends AbstractField {
 
   public function normalize(mixed $value, NormalizerRegistry $registry): mixed {
     if (!is_array($value)) {
-      // [TODO] エラー処理
+      return null;
     }
 
     $o = new stdClass();

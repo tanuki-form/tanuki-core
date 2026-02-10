@@ -103,10 +103,10 @@ class Form {
   }
 
   private function addValidationError(string $field, string $vname){
-    if(isset($this->errors[$field])){
-      $this->validationErrors[$field] = [$vname];
-    }else{
+    if(isset($this->validationErrors[$field])){
       $this->validationErrors[$field][] = $vname;
+    }else{
+      $this->validationErrors[$field] = [$vname];
     }
   }
 }

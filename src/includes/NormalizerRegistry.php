@@ -10,7 +10,7 @@ class NormalizerRegistry {
   }
 
   public function resolve(string $key) {
-    if(in_array($key, $this->normalizers)) {
+    if(\array_key_exists($key, $this->normalizers)) {
       return $this->normalizers[$key];
     }
 
